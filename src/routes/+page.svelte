@@ -1,20 +1,15 @@
 <script lang="ts">
-	import TodoStore from '$lib/store';
+	import TodoStore, {AddTodo, ClearTodos} from '$lib/store';
 	import type { Todo } from '../lib/types';
 	import ListItem from '../components/ListItem.svelte';
 
 	let todos: Todo[] = [];
-	let newTodo: Todo = { title: 'hej', description: 'värld', done: false };
-
+	
 	TodoStore.subscribe((data) => {
 		todos = data;
 	});
 
-	function AddTodo() {
-		TodoStore.update((current) => {
-			return [newTodo, ...current];
-		});
-	}
+	// let newTodo: Todo = { id: todos.length + 1, title: 'hej', description: 'värld', done: false };
 </script>
 
 <div class="flex flex-col h-screen m-1">
@@ -25,6 +20,7 @@
 		{/each}
 	</div>
 	<div class="bg-blue-500 text-center mb-2">
-		<button on:click={AddTodo}>Add Todo</button>
+		<button on:click={() => AddTodo({ title: 'hej', description: 'värld', done: false })}>Add Todo</button>
+		<button on:click={ClearTodos}>Clear Todos</button>
 	</div>
 </div>
