@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { TodoStore, AddTodo, ClearTodos, TodoFormOpen } from '$lib/ts/stores';
+	import { TodoStore, AddTodo, ClearTodos, RecalculateTodos, TodoFormOpen } from '$lib/ts/stores';
 	import type { Todo } from '$lib/ts/types';
 	import ListItem from '$lib/components/ListItem.svelte';
 	import Button from '$lib/components/Button.svelte';
@@ -15,6 +15,8 @@
 		console.log('true');
 		TodoFormOpen.set(true);
 	}
+
+	RecalculateTodos();
 </script>
 
 <div class="flex flex-col h-screen m-1">

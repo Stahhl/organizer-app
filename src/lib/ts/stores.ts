@@ -18,4 +18,8 @@ export function ClearTodos() {
 	});
 }
 
+export function RecalculateTodos(){
+	console.log('RecalculateTodos')
+}
+
 export const TodoFormOpen = writable(false);

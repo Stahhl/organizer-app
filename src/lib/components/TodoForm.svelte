@@ -1,19 +1,32 @@
 <script lang="ts">
 	import Button from './Button.svelte';
-	import { TodoFormOpen } from '$lib/ts/stores';
+	import { TodoFormOpen, AddTodo } from '$lib/ts/stores';
+	import type { Todo } from '$lib/ts/types';
 
-    function handleClick(){
-        console.log('false')
-        TodoFormOpen.set(false)
-    }
+	export let todo: Todo = {title: '', description: '', done: false};
+
+	function handleClick() {
+		console.log('false');
+		AddTodo(todo);
+		TodoFormOpen.set(false);
+	}
 </script>
 
-<div class="w-screen h-screen fixed top-0 left-0 flex justify-center items-center">
-	<div class="bg-gray-900 text-white rounded-md px-8 py-10 relative max-w-lg opacity-80">
-		<!-- yolo
-		<form on:submit|preventDefault={() => TodoFormOpen.set(false)}>
-			<Button>Close</Button>
-		</form> -->
-        <button on:click={handleClick}>lol</button>
+<div
+	class="w-screen h-screen fixed top-0 left-0 flex justify-center items-center"
+	on:click={handleClick}
+>
+	<div
+		class="bg-gray-900 rounded-md px-8 py-10 relative max-w-lg opacity-80"
+		on:click|stopPropagation
+	>
+		<form on:submit={handleClick} class="flex flex-col">
+			<label class="text-white">Title</label>
+			<input type="text" bind:value={todo.title} />
+			<label class="text-white">Description</label>
+			<input type="text" bind:value={todo.description} />
+			<br />
+			<Button>Save</Button>
+		</form>
 	</div>
 </div>
