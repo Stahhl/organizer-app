@@ -3,9 +3,11 @@
 	import { TodoFormOpen, AddTodo } from '$lib/ts/stores';
 	import { IntervalUnit, type Interval } from '$lib/ts/types';
 
-	export let title: string;
-	export let description: string;
-	export let interval: Interval = {unit: IntervalUnit.DAYS, amount: 1}
+	let title: string;
+	let description: string;
+	let interval: Interval = { unit: IntervalUnit.DAYS, amount: 1 };
+
+	let values = Object.values(IntervalUnit);
 
 	function handleClick() {
 		console.log('false');
@@ -19,18 +21,29 @@
 	on:click={handleClick}
 >
 	<div
-		class="bg-gray-900 rounded-md px-8 py-10 relative max-w-lg opacity-80"
+		class="bg-teal-400 rounded-md px-8 py-10 relative max-w-lg opacity-80"
 		on:click|stopPropagation
 	>
 		<form on:submit={handleClick} class="flex flex-col">
-			<label class="text-white flex flex-col">
+			<label class="flex flex-col">
 				Title
-				<input class="text-black" type="text" bind:value={title} />
+				<input type="text" bind:value={title} />
 			</label>
-			<label class="text-white flex flex-col">
+			<label class="flex flex-col">
 				Description
-				<input class="text-black" type="text" bind:value={description} />
+				<input type="text" bind:value={description} />
 			</label>
+			<div>
+				Every:
+				<input type="number" bind:value={interval.amount} />
+				<select bind:value={interval.unit}>
+					{#each values as value}
+						<option {value}>
+							{value}
+						</option>
+					{/each}
+				</select>
+			</div>
 			<br />
 			<Button>Save</Button>
 		</form>

@@ -6,8 +6,8 @@
 
 <div class="shadow-m bg-teal-200">
 	<div class="m-1">
-		<p>{todo.id}</p>
 		<p>{todo.title} {todo.description}</p>
+		<p>{todo.daysLeft}</p>
 	</div>
 </div>
  

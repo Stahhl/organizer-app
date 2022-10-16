@@ -5,6 +5,8 @@
 	import Button from '$lib/components/Button.svelte';
 	import TodoForm from '$lib/components/TodoForm.svelte';
 
+// ClearTodos();
+
 	let todos: Todo[] = [];
 
 	TodoStore.subscribe((data) => {
@@ -16,7 +18,7 @@
 		TodoFormOpen.set(true);
 	}
 
-	RecalculateTodos();
+	// RecalculateTodos();
 </script>
 
 <div class="flex flex-col h-screen m-1">
