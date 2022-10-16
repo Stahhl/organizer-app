@@ -1,13 +1,15 @@
 <script lang="ts">
 	import Button from './Button.svelte';
 	import { TodoFormOpen, AddTodo } from '$lib/ts/stores';
-	import type { Todo } from '$lib/ts/types';
+	import { IntervalUnit, type Interval } from '$lib/ts/types';
 
-	export let todo: Todo = {title: '', description: '', done: false};
+	export let title: string;
+	export let description: string;
+	export let interval: Interval = {unit: IntervalUnit.DAYS, amount: 1}
 
 	function handleClick() {
 		console.log('false');
-		AddTodo(todo);
+		AddTodo(title, description, interval);
 		TodoFormOpen.set(false);
 	}
 </script>
@@ -21,10 +23,14 @@
 		on:click|stopPropagation
 	>
 		<form on:submit={handleClick} class="flex flex-col">
-			<label class="text-white">Title</label>
-			<input type="text" bind:value={todo.title} />
-			<label class="text-white">Description</label>
-			<input type="text" bind:value={todo.description} />
+			<label class="text-white flex flex-col">
+				Title
+				<input class="text-black" type="text" bind:value={title} />
+			</label>
+			<label class="text-white flex flex-col">
+				Description
+				<input class="text-black" type="text" bind:value={description} />
+			</label>
 			<br />
 			<Button>Save</Button>
 		</form>

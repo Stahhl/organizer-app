@@ -1,13 +1,13 @@
 import { writable } from 'svelte/store';
 import { persist, createIndexedDBStorage } from '@macfja/svelte-persistent-store';
-import type { Todo } from './types';
+import { Todo, type Interval } from './types';
 
 export const TodoStore = persist<Todo[]>(writable([]), createIndexedDBStorage(), 'TodoStoreDb');
 
-export function AddTodo(newTodo: Todo) {
+export function AddTodo(title: string, description: string, interval: Interval) {
 	TodoStore.update((current) => {
-		newTodo.id = current.length + 1;
-        current.push(newTodo);
+		let todo = new Todo(current.length + 1, title, description, interval);
+        current.push(todo);
 		return current;
 	});
 }
