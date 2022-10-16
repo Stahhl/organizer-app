@@ -1,8 +1,9 @@
 <script lang="ts">
-	import TodoStore, { AddTodo, ClearTodos } from '$lib/ts/store';
+	import { TodoStore, AddTodo, ClearTodos, TodoFormOpen } from '$lib/ts/stores';
 	import type { Todo } from '$lib/ts/types';
 	import ListItem from '$lib/components/ListItem.svelte';
 	import Button from '$lib/components/Button.svelte';
+	import TodoForm from '$lib/components/TodoForm.svelte';
 
 	let todos: Todo[] = [];
 
@@ -11,7 +12,8 @@
 	});
 
 	function handleClick() {
-		console.log('hello')
+		console.log('true');
+		TodoFormOpen.set(true);
 	}
 </script>
 
@@ -22,8 +24,11 @@
 			<ListItem bind:todo />
 		{/each}
 	</div>
+	{#if $TodoFormOpen}
+		<TodoForm />
+	{/if}
 	<div class="flex flex-row justify-center text-center mb-2">
-		<form on:submit|preventDefault={() => AddTodo({ title: 'hej', description: 'värld', done: false })}>
+		<form on:submit|preventDefault={handleClick}>
 			<Button>Add Todo</Button>
 		</form>
 		<form on:submit|preventDefault={ClearTodos}>
