@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Todo } from '$lib/types';
+	import type { Todo } from '$lib/ts/types';
 
 	export let todo: Todo;
 </script>
