@@ -49,6 +49,16 @@ export function ClearTodos() {
 
 export function RecalculateTodos() {
 	console.log('RecalculateTodos');
+	const currentDat = new Date();
+	console.log(currentDat.toISOString)
+
+	// TodoStore.update((current) => {
+	// 	current.forEach(todo => {
+	// 		todo.daysLeft -= 1;
+	// 	});
+
+	// 	return current;
+	// });
 }
 
 export const TodoFormOpen = writable(false);

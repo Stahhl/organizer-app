@@ -18,7 +18,7 @@
 		TodoFormOpen.set(true);
 	}
 
-	// RecalculateTodos();
+	RecalculateTodos();
 </script>
 
 <div class="flex flex-col h-screen m-1">
