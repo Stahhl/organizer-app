@@ -9,22 +9,27 @@
 
 	let values = Object.values(IntervalUnit);
 
-	function handleClick() {
-		console.log('false');
+	function submit() {
+		console.log('submit');
 		AddTodo(title, description, interval);
+		TodoFormOpen.set(false);
+	}
+
+	function cancel() {
+		console.log('cancel');
 		TodoFormOpen.set(false);
 	}
 </script>
 
 <div
 	class="w-screen h-screen fixed top-0 left-0 flex justify-center items-center"
-	on:click={handleClick}
+	on:click={cancel}
 >
 	<div
 		class="bg-teal-400 rounded-md px-8 py-10 relative max-w-lg opacity-80"
 		on:click|stopPropagation
 	>
-		<form on:submit={handleClick} class="flex flex-col">
+		<form on:submit={submit} class="flex flex-col">
 			<label class="flex flex-col">
 				Title
 				<input type="text" bind:value={title} />
