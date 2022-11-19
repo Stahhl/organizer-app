@@ -1,21 +1,20 @@
 <script lang="ts">
+	import { TodoStore, SelectedTodo, IntervalValues, UpdateTodo } from '$lib/ts/stores';
+	import type { Todo } from '$lib/ts/types';
 	import Button from './Button.svelte';
-	import { TodoFormOpen, AddTodo, IntervalValues } from '$lib/ts/stores';
-	import { IntervalUnit, type Interval } from '$lib/ts/types';
 
-	let title: string;
-	let description: string;
-	let interval: Interval = { unit: IntervalUnit.DAYS, amount: 1 };
+	export let todo: Todo;
 
 	function submit() {
 		console.log('submit');
-		AddTodo(title, description, interval);
-		TodoFormOpen.set(false);
+        UpdateTodo(todo);
+        
+        SelectedTodo.set(null);
 	}
 
 	function cancel() {
 		console.log('cancel');
-		TodoFormOpen.set(false);
+		SelectedTodo.set(null);
 	}
 </script>
 
@@ -30,16 +29,16 @@
 		<form on:submit={submit} class="flex flex-col">
 			<label class="flex flex-col">
 				Title
-				<input type="text" bind:value={title} />
+				<input type="text" bind:value={todo.title} />
 			</label>
 			<label class="flex flex-col">
 				Description
-				<input type="text" bind:value={description} />
+				<input type="text" bind:value={todo.description} />
 			</label>
 			<div>
 				Every:
-				<input type="number" bind:value={interval.amount} />
-				<select bind:value={interval.unit}>
+				<input type="number" bind:value={todo.interval.amount} />
+				<select bind:value={todo.interval.unit}>
 					{#each IntervalValues as value}
 						<option {value}>
 							{value}

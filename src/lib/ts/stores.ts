@@ -24,7 +24,7 @@ function CalcDays(interval: Interval): number {
 
 export function AddTodo(title: string, description: string, interval: Interval) {
 	TodoStore.update((current) => {
-		console.log(current.length)
+		console.log(current.length);
 
 		let todo: Todo = {
 			id: current.length + 1,
@@ -35,7 +35,17 @@ export function AddTodo(title: string, description: string, interval: Interval) 
 			daysLeft: CalcDays(interval)
 		};
 		current.push(todo);
-		console.log(current.length)
+		console.log(current.length);
+		return current;
+	});
+}
+
+export function UpdateTodo(todo: Todo) {
+	TodoStore.update((current) => {
+		todo.daysLeft = CalcDays(todo.interval)
+		let index = current.findIndex((x) => x.id == todo.id);
+		current[index] = todo;
+
 		return current;
 	});
 }
@@ -50,9 +60,9 @@ export function RecalculateTodos(forceAmount: number = 0) {
 	console.log(`RecalculateTodos: '${forceAmount}'`);
 	let newDate: number = formatDate() + forceAmount;
 
-	RecalcStore.update(oldDate => {
+	RecalcStore.update((oldDate) => {
 		console.log(`oldDate = '${oldDate}', newDate = '${newDate}'`);
-		if(oldDate == newDate) return oldDate;
+		if (oldDate == newDate) return oldDate;
 
 		decrementTodos(newDate - oldDate);
 		return newDate - forceAmount;
@@ -62,12 +72,12 @@ export function RecalculateTodos(forceAmount: number = 0) {
 export function decrementTodos(diff: number) {
 	console.log('decrementTodos');
 
-	if(diff <= 0) return;
+	if (diff <= 0) return;
 
 	TodoStore.update((current) => {
 		current.forEach((todo) => {
 			todo.daysLeft -= diff;
-			console.log(todo.daysLeft)
+			console.log(todo.daysLeft);
 		});
 
 		return current;
@@ -79,3 +89,9 @@ export function formatDate(date = new Date()): number {
 }
 
 export const TodoFormOpen = writable(false);
+
+export const TodoDetailsOpen = writable(false);
+
+export const SelectedTodo = writable<Todo | null>();
+
+export const IntervalValues = Object.values(IntervalUnit);
