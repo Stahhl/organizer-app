@@ -14,10 +14,8 @@
 
 	// ClearTodos();
 
-	let todos: Todo[] = [];
 	let todo: Todo | null;
 
-	TodoStore.subscribe((data) => (todos = data));
 	SelectedTodo.subscribe((data) => (todo = data));
 
 	function handleClick() {
@@ -38,7 +36,7 @@
 	<div class="flex flex-col h-screen m-1">
 		<div class="bg-red-500 text-center">Hello World</div>
 		<div class="flex-1 overflow-y-auto">
-			{#each todos as todo}
+			{#each $TodoStore as todo}
 				<ListItem bind:todo />
 			{/each}
 		</div>

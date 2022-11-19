@@ -4,12 +4,15 @@
 	import Button from './Button.svelte';
 
 	export let todo: Todo;
+	let markedForDelete: boolean = false;
 
 	function submit() {
 		console.log('submit');
-        UpdateTodo(todo);
-        
-        SelectedTodo.set(null);
+		console.log(markedForDelete);
+
+		UpdateTodo(todo, markedForDelete);
+
+		SelectedTodo.set(null);
 	}
 
 	function cancel() {
@@ -27,6 +30,11 @@
 		on:click|stopPropagation
 	>
 		<form on:submit={submit} class="flex flex-col">
+			<div class="ml-auto">
+				Delete me
+				<input type="checkbox" bind:checked={markedForDelete} />
+			</div>
+
 			<label class="flex flex-col">
 				Title
 				<input type="text" bind:value={todo.title} />

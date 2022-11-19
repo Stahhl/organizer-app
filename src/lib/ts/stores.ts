@@ -40,11 +40,22 @@ export function AddTodo(title: string, description: string, interval: Interval) 
 	});
 }
 
-export function UpdateTodo(todo: Todo) {
+export function UpdateTodo(todo: Todo, remove: boolean) {
 	TodoStore.update((current) => {
-		todo.daysLeft = CalcDays(todo.interval)
+		console.log('UpdateTodo');
+		console.log(remove);
+
 		let index = current.findIndex((x) => x.id == todo.id);
-		current[index] = todo;
+
+		if (remove) {
+			console.log('delete todo');
+			console.log(current.length);
+			current.splice(index, 1);
+			console.log(current.length);
+		} else {
+			todo.daysLeft = CalcDays(todo.interval);
+			current[index] = todo;
+		}
 
 		return current;
 	});
@@ -58,6 +69,7 @@ export function ClearTodos() {
 
 export function RecalculateTodos(forceAmount: number = 0) {
 	console.log(`RecalculateTodos: '${forceAmount}'`);
+
 	let newDate: number = formatDate() + forceAmount;
 
 	RecalcStore.update((oldDate) => {
