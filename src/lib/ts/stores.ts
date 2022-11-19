@@ -49,16 +49,6 @@ export function ClearTodos() {
 export function RecalculateTodos(forceAmount: number = 0) {
 	console.log(`RecalculateTodos: '${forceAmount}'`);
 	let newDate: number = formatDate() + forceAmount;
-	// let decrement = false;
-	// let oldDate: string = "";
-
-	// RecalcStore.subscribe((data) => (oldDate = data));
-	// console.log(`oldDate = '${oldDate}', newDate = '${newDate}'`);
-
-	// if(!force && oldDate == newDate) return;
-
-	// RecalcStore.set(newDate)
-	// decrementTodos();
 
 	RecalcStore.update(oldDate => {
 		console.log(`oldDate = '${oldDate}', newDate = '${newDate}'`);
